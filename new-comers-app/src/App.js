@@ -1,11 +1,19 @@
+import React from "react";
+
 import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
-  );
+  /*   const [backendData, setBackendData] = useState([{}]);
+
+  useEffect(() => {
+    fetch("/api")
+      .then((response) => response.json())
+      .then((data) => {
+        setBackendData(data);
+      });
+  }, []); */
+
+  return <div className="App"></div>;
 }
 
 export default App;
