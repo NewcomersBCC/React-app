@@ -1,19 +1,23 @@
-import React from "react";
+import axios from "axios";
+
+import React, { useState } from "react";
 
 import "./App.css";
 
 function App() {
-  /*   const [backendData, setBackendData] = useState([{}]);
+  const [user, SetUser] = useState([{}]);
 
-  useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((data) => {
-        setBackendData(data);
-      });
-  }, []); */
+  axios("/api").then(function (response) {
+    console.log(response.data.users);
+  });
 
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      {/*   {newComers.map((user, i) => (
+        <h1 key={i}>{user.call}</h1>
+      ))} */}
+    </div>
+  );
 }
 
 export default App;
