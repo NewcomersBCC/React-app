@@ -2,6 +2,7 @@ import axios from "axios";
 //import styles from "../Register/Register.module.css";
 import React, { useState } from "react";
 import Input from "../components/Input/Input";
+import Button from "../components/Button/Button";
 
 function handleSubmition(firstName, lastName, email, password) {
   const params = {
@@ -25,6 +26,7 @@ export default function Register() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [inputType, setInputType] = useState("password");
   return (
     <>
       <Input
@@ -56,7 +58,7 @@ export default function Register() {
       ></Input>
       <Input
         inputPlaceHolder="example123"
-        inputType="text"
+        inputType={inputType}
         inputLabel="Password:"
         onChange={(e) => {
           const password = e.target.value;
@@ -64,11 +66,19 @@ export default function Register() {
         }}
       ></Input>
       <Input
+        inputType="checkbox"
+        onClick={() => {
+          inputType === "password"
+            ? setInputType("text")
+            : setInputType("password");
+        }}
+      ></Input>
+      <Button
         onClick={() => {
           handleSubmition(firstName, lastName, email, password);
         }}
-        inputType="submit"
-      ></Input>
+        buttonLabel="Register"
+      />
     </>
   );
 }

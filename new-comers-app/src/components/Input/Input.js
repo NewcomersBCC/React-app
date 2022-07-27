@@ -7,12 +7,14 @@ export default function Input({
   inputType,
   onChange,
   inputValue,
+  onClick,
 }) {
   return (
     <div>
       <label>
         {inputLabel}
         <input
+          onClick={onClick}
           value={inputValue}
           onChange={onChange}
           placeholder={inputPlaceHolder}
