@@ -6,19 +6,21 @@ module.exports = {
     const { firstName, lastName, email, password } = req.body;
     const hash = await bcrypt.hash(password, 10);
 
-    User.create({
-      firstName,
-      lastName,
-      email,
-      password: hash,
-    })
-      .then(() => {
-        res.status(200).send("User Created Successfully");
-      })
-      .catch((err) => {
-        res.status(500).send("Something went wrong");
-        console.log(err);
-      });
+    const [user, created] = await User.findOrCreate({
+      where: { email: email },
+      defaults: {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: hash,
+      },
+    });
+
+    if (!created) {
+      return res.status(400).send("Email Already Registered");
+    }
+
+    return res.status(200).send("User Created Successfully");
   },
   index(req, res) {
     User.findAll()

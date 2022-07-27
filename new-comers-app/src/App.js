@@ -1,13 +1,19 @@
 /* import axios from "axios"; */
-import Register from "./components/register";
+//import Register from "./components/Register/Register";
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./pages/Register";
 
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <Register />
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Register />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
