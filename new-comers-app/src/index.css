@@ -2,6 +2,8 @@
 
 body {
   margin: 0;
+  padding: 0;
+  border-style: border-box;
   font-family: "Lexend", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
