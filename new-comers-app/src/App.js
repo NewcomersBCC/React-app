@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<HelperVsNC />}></Route>
-          <Route path="register" element={<Register />}></Route>
+          <Route path="/register/:option" element={<Register />}></Route>
           <Route path="login" element={<Login />}></Route>
         </Routes>
       </BrowserRouter>
