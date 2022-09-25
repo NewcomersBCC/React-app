@@ -7,9 +7,22 @@ import { useParams } from "react-router-dom";
 //import EsolCentre from "../data/EsolCentre.json";
 import DropDown from "../components/DropDown/DropDown";
 
-function handleSubmition(firstName, lastName, email, password, option) {
+function handleSubmition(
+  firstName,
+  lastName,
+  email,
+  password,
+  option,
+  selectedEsolCentre
+) {
   let isHelper = true;
-  option === "new-comer" ? (isHelper = false) : (isHelper = true);
+  if (option === "new-comer") {
+    isHelper = false;
+    selectedEsolCentre = "";
+  } else {
+    isHelper = true;
+  }
+
   console.log(isHelper);
   const params = {
     firstName,
@@ -17,6 +30,7 @@ function handleSubmition(firstName, lastName, email, password, option) {
     email,
     password,
     isHelper,
+    selectedEsolCentre,
   };
 
   axios
@@ -36,6 +50,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [inputType, setInputType] = useState("password");
   const [dataArray, setDataArray] = useState([]);
+  const [selectedEsolCentre, setSelectedEsolCentre] = useState("1");
   const [locationsFetched, setLocationsFetched] = useState(false);
   const { option } = useParams();
 
@@ -98,12 +113,24 @@ export default function Register() {
         }}
       ></Input>
       {locationsFetched && option === "helper" && (
-        <DropDown labelText="Choose an Esol Centre" data={dataArray} />
+        <DropDown
+          onChange={(e) => {
+            setSelectedEsolCentre(e.target.value);
+          }}
+          labelText="Choose an Esol Centre"
+          data={dataArray}
+        />
       )}
-
       <Button
         onClick={() => {
-          handleSubmition(firstName, lastName, email, password, option);
+          handleSubmition(
+            firstName,
+            lastName,
+            email,
+            password,
+            option,
+            selectedEsolCentre
+          );
         }}
         buttonLabel="Register"
       />

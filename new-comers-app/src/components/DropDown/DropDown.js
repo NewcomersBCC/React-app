@@ -1,13 +1,13 @@
 import React from "react";
 
-export default function DropDown({ labelText, data }) {
+export default function DropDown({ onChange, labelText, data }) {
   return (
     <>
       <label>{labelText}</label>
-      <select>
+      <select onChange={onChange}>
         {data.map((item) => {
           return (
-            <option key={item.id} value={item.title}>
+            <option key={item.id} value={item.id}>
               {item.centreName + " - " + item.address}
             </option>
           );

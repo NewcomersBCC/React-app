@@ -3,7 +3,14 @@ import bcrypt from "bcrypt";
 
 export default {
   async create(req, res) {
-    const { firstName, lastName, email, password, isHelper } = req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      isHelper,
+      selectedEsolCentre,
+    } = req.body;
     const hash = await bcrypt.hash(password, 10);
 
     const [user, created] = await User.findOrCreate({
@@ -14,6 +21,7 @@ export default {
         email: email,
         password: hash,
         isHelper: isHelper,
+        centreID: selectedEsolCentre,
       },
     });
 
