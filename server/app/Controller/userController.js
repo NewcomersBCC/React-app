@@ -1,9 +1,16 @@
-const User = require("../Models/user");
-const bcrypt = require("bcrypt");
+import User from "/Users/luantavares/Development/NewComers/React-app/server/app/Models/user.js";
+import bcrypt from "bcrypt";
 
-module.exports = {
+export default {
   async create(req, res) {
-    const { firstName, lastName, email, password } = req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      isHelper,
+      selectedEsolCentre,
+    } = req.body;
     const hash = await bcrypt.hash(password, 10);
 
     const [user, created] = await User.findOrCreate({
@@ -13,6 +20,8 @@ module.exports = {
         lastName: lastName,
         email: email,
         password: hash,
+        isHelper: isHelper,
+        centreID: selectedEsolCentre,
       },
     });
 

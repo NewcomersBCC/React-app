@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
@@ -20,6 +21,7 @@
     "sequelize": "^6.21.3"
   },
   "devDependencies": {
+    "babel-register": "^6.26.0",
     "nodemon": "^2.0.19"
   }
 }

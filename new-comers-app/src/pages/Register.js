@@ -1,16 +1,38 @@
 import axios from "axios";
 //import styles from "../Register/Register.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
+import { useParams } from "react-router-dom";
+//import EsolCentre from "../data/EsolCentre.json";
+import DropDown from "../components/DropDown/DropDown";
 
-function handleSubmition(firstName, lastName, email, password) {
+function handleSubmition(
+  firstName,
+  lastName,
+  email,
+  password,
+  option,
+  selectedEsolCentre
+) {
+  let isHelper = true;
+  if (option === "new-comer") {
+    isHelper = false;
+    selectedEsolCentre = "";
+  } else {
+    isHelper = true;
+  }
+
+  console.log(isHelper);
   const params = {
     firstName,
     lastName,
     email,
     password,
+    isHelper,
+    selectedEsolCentre,
   };
+
   axios
     .post("/user/register", params)
     .then(function (response) {
@@ -27,6 +49,23 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputType, setInputType] = useState("password");
+  const [dataArray, setDataArray] = useState([]);
+  const [selectedEsolCentre, setSelectedEsolCentre] = useState("1");
+  const [locationsFetched, setLocationsFetched] = useState(false);
+  const { option } = useParams();
+
+  useEffect(() => {
+    axios
+      .get("/user/register")
+      .then(({ data: EsolCenters }) => {
+        setDataArray(EsolCenters);
+        setLocationsFetched(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <Input
@@ -73,9 +112,25 @@ export default function Register() {
             : setInputType("password");
         }}
       ></Input>
+      {locationsFetched && option === "helper" && (
+        <DropDown
+          onChange={(e) => {
+            setSelectedEsolCentre(e.target.value);
+          }}
+          labelText="Choose an Esol Centre"
+          data={dataArray}
+        />
+      )}
       <Button
         onClick={() => {
-          handleSubmition(firstName, lastName, email, password);
+          handleSubmition(
+            firstName,
+            lastName,
+            email,
+            password,
+            option,
+            selectedEsolCentre
+          );
         }}
         buttonLabel="Register"
       />

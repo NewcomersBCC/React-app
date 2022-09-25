@@ -9,7 +9,7 @@ function handleLogin(email, password) {
     password,
   };
   axios
-    .post("/user/register", params)
+    .post("/user/login", params)
     .then(function (response) {
       console.log(response);
     })

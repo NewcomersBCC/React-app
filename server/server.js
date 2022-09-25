@@ -1,7 +1,8 @@
-require("dotenv").config();
-const databaseInstance = require("./config/database.js");
-const express = require("express");
+import "dotenv/config";
+import databaseInstance from "./config/database.js";
+import express from "express";
 const app = express();
+import router from "./app/Routes/user.js";
 
 /* Database connection */
 
@@ -15,7 +16,7 @@ try {
 app.use(express.json());
 
 //User routes
-app.use("/user", require("./app/Routes/user"));
+app.use("/user", router);
 
 app.listen(process.env.APP_PORT, () =>
   console.log(`Example app listening on port ${process.env.APP_PORT}!`)
