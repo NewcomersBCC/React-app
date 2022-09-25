@@ -13,7 +13,8 @@ function handleSubmition(
   email,
   password,
   option,
-  selectedEsolCentre
+  selectedEsolCentre,
+  centreCode
 ) {
   let isHelper = true;
   if (option === "new-comer") {
@@ -23,7 +24,7 @@ function handleSubmition(
     isHelper = true;
   }
 
-  console.log(isHelper);
+  //console.log(isHelper);
   const params = {
     firstName,
     lastName,
@@ -31,6 +32,7 @@ function handleSubmition(
     password,
     isHelper,
     selectedEsolCentre,
+    centreCode,
   };
 
   axios
@@ -48,6 +50,7 @@ export default function Register() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [centreCode, setCentreCode] = useState("");
   const [inputType, setInputType] = useState("password");
   const [dataArray, setDataArray] = useState([]);
   const [selectedEsolCentre, setSelectedEsolCentre] = useState("1");
@@ -121,6 +124,17 @@ export default function Register() {
           data={dataArray}
         />
       )}
+      {locationsFetched && option === "helper" && (
+        <Input
+          inputType="text"
+          inputLabel="Esol Centre Code:"
+          onChange={(e) => {
+            const centreCode = e.target.value;
+            setCentreCode(centreCode);
+          }}
+        ></Input>
+      )}
+
       <Button
         onClick={() => {
           handleSubmition(
@@ -129,7 +143,8 @@ export default function Register() {
             email,
             password,
             option,
-            selectedEsolCentre
+            selectedEsolCentre,
+            centreCode
           );
         }}
         buttonLabel="Register"
