@@ -53,7 +53,7 @@ export default function Register() {
   const [centreCode, setCentreCode] = useState("");
   const [inputType, setInputType] = useState("password");
   const [dataArray, setDataArray] = useState([]);
-  const [selectedEsolCentre, setSelectedEsolCentre] = useState("1");
+  const [selectedEsolCentre, setSelectedEsolCentre] = useState(1);
   const [locationsFetched, setLocationsFetched] = useState(false);
   const { option } = useParams();
 

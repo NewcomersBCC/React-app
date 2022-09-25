@@ -1,4 +1,6 @@
-import User from "/Users/luantavares/Development/NewComers/React-app/server/app/Models/user.js";
+import userService from "/Users/luantavares/Development/NewComers/React-app/server/app/Services/userService.js";
+import esolCentreController from "/Users/luantavares/Development/NewComers/React-app/server/app/Controller/esolCentreController.js";
+
 import bcrypt from "bcrypt";
 
 export default {
@@ -10,23 +12,37 @@ export default {
       password,
       isHelper,
       selectedEsolCentre,
+      centreCode,
     } = req.body;
+
     const hash = await bcrypt.hash(password, 10);
 
-    const [user, created] = await User.findOrCreate({
-      where: { email: email },
-      defaults: {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: hash,
-        isHelper: isHelper,
-        centreID: selectedEsolCentre,
-      },
-    });
+    if (isHelper == true) {
+      const isCentreCodeValid = await esolCentreController.validateCentre(
+        selectedEsolCentre,
+        centreCode
+      );
 
-    if (!created) {
-      return res.status(400).send("Email Already Registered");
+      if (!isCentreCodeValid) {
+        return res
+          .status(400)
+          .send(
+            "Mismatching ESOL Centre Code, contact your Esol tutor for more information"
+          );
+      } else {
+        const [user, created] = await userService.create(
+          firstName,
+          lastName,
+          email,
+          hash,
+          isHelper,
+          selectedEsolCentre
+        );
+
+        if (!created) {
+          return res.status(400).send("Email Already Registered");
+        }
+      }
     }
 
     return res.status(200).send("User Created Successfully");
