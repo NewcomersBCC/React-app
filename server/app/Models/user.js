@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import databaseInstance from "/Users/luantavares/Development/NewComers/React-app/server/config/database.js";
+import esolCentre from "/Users/luantavares/Development/NewComers/React-app/server/app/Models/esolcentre.js";
 
 const User = databaseInstance.define("user", {
   firstName: {
@@ -25,12 +26,20 @@ const User = databaseInstance.define("user", {
   centreID: {
     allowNull: true,
     type: DataTypes.INTEGER,
+    references: {
+      model: "esolcentre",
+      key: "id",
+    },
   },
 });
 
-/* this.belongsTo(esolcentre, {
-  as: "centreID",
-  foreignKey: "id",
-}); */
+User.associate = async (models) => {
+  await User.belongsTo(esolCentre, {
+    foreignKey: "id",
+  });
+  esolCentre.associate(User);
+};
+
+User.associate();
 
 export default User;
