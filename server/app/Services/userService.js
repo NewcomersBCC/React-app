@@ -14,4 +14,8 @@ export default {
       },
     });
   },
+
+  find(email) {
+    return User.findOne({ where: { email: email } });
+  },
 };

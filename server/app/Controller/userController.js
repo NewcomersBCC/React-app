@@ -29,23 +29,54 @@ export default {
           .send(
             "Mismatching ESOL Centre Code, contact your Esol tutor for more information"
           );
-      } else {
-        const [user, created] = await userService.create(
-          firstName,
-          lastName,
-          email,
-          hash,
-          isHelper,
-          selectedEsolCentre
-        );
+      }
+      const [user, created] = await userService.create(
+        firstName,
+        lastName,
+        email,
+        hash,
+        isHelper,
+        selectedEsolCentre
+      );
 
-        if (!created) {
-          return res.status(400).send("Email Already Registered");
-        }
+      if (!created) {
+        return res.status(400).send("Email Already Registered");
+      }
+    } else {
+      const [user, created] = await userService.create(
+        firstName,
+        lastName,
+        email,
+        hash,
+        isHelper,
+        selectedEsolCentre
+      );
+
+      if (!created) {
+        return res.status(400).send("Email Already Registered");
       }
     }
 
     return res.status(200).send("User Created Successfully");
+  },
+  async login(req, res) {
+    const { email, password } = req.body;
+
+    try {
+      const user = await userService.find(email);
+      const dbPassword = user.password;
+
+      const match = await bcrypt.compare(password, dbPassword);
+      if (!match) {
+        return res
+          .status(400)
+          .json({ error: "Wrong username and password combination" });
+      }
+    } catch {
+      return res.status(400).send("User not found");
+    }
+
+    return res.status(200).send("User logged in successfully");
   },
   index(req, res) {
     User.findAll()

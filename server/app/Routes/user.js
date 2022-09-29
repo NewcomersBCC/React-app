@@ -8,6 +8,6 @@ router
   .get("/", userController.index)
   .get("/register/", esolCentreController.index)
   .post("/register/", userController.create)
-  .post("/login", (req, res) => res.send("login route reached"));
+  .post("/login", userController.login);
 
 export default router;
