@@ -1,6 +1,6 @@
 import userService from "/Users/luantavares/Development/NewComers/React-app/server/app/Services/userService.js";
 import esolCentreController from "/Users/luantavares/Development/NewComers/React-app/server/app/Controller/esolCentreController.js";
-
+import jwt from "/Users/luantavares/Development/NewComers/React-app/server/app/Middlewares/JWT.js";
 import bcrypt from "bcrypt";
 
 export default {
@@ -72,6 +72,14 @@ export default {
           .status(400)
           .json({ error: "Wrong username and password combination" });
       }
+      const accessToken = await jwt.createToken(user);
+      if (!accessToken) {
+        return res.status(400).send("Error signing user token");
+      }
+      res.cookie("access-token", accessToken, {
+        maxAge: 15778800000,
+        httpOnly: true,
+      });
     } catch {
       return res.status(400).send("User not found");
     }
