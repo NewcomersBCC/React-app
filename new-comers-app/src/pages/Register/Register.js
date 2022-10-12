@@ -1,11 +1,11 @@
 import axios from "axios";
 //import styles from "../Register/Register.module.css";
 import React, { useState, useEffect } from "react";
-import Input from "../components/Input/Input";
-import Button from "../components/Button/Button";
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
 import { useParams } from "react-router-dom";
 //import EsolCentre from "../data/EsolCentre.json";
-import DropDown from "../components/DropDown/DropDown";
+import DropDown from "../../components/DropDown/DropDown";
 
 function handleSubmition(
   firstName,

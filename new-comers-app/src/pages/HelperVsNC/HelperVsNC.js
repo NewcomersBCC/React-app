@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { React } from "react";
-import Button from "../components/Button/Button";
+import Button from "../../components/Button/Button";
 
 export default function HelperVsNC() {
   return (

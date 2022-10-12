@@ -1,6 +1,6 @@
 import userService from "/Users/luantavares/Development/NewComers/React-app/server/app/Services/userService.js";
 import esolCentreController from "/Users/luantavares/Development/NewComers/React-app/server/app/Controller/esolCentreController.js";
-
+import jwt from "/Users/luantavares/Development/NewComers/React-app/server/app/Middlewares/JWT.js";
 import bcrypt from "bcrypt";
 
 export default {
@@ -29,23 +29,62 @@ export default {
           .send(
             "Mismatching ESOL Centre Code, contact your Esol tutor for more information"
           );
-      } else {
-        const [user, created] = await userService.create(
-          firstName,
-          lastName,
-          email,
-          hash,
-          isHelper,
-          selectedEsolCentre
-        );
+      }
+      const [user, created] = await userService.create(
+        firstName,
+        lastName,
+        email,
+        hash,
+        isHelper,
+        selectedEsolCentre
+      );
 
-        if (!created) {
-          return res.status(400).send("Email Already Registered");
-        }
+      if (!created) {
+        return res.status(400).send("Email Already Registered");
+      }
+    } else {
+      const [user, created] = await userService.create(
+        firstName,
+        lastName,
+        email,
+        hash,
+        isHelper,
+        selectedEsolCentre
+      );
+
+      if (!created) {
+        return res.status(400).send("Email Already Registered");
       }
     }
 
     return res.status(200).send("User Created Successfully");
+  },
+  async login(req, res) {
+    const { email, password } = req.body;
+
+    try {
+      const user = await userService.find(email);
+      const dbPassword = user.password;
+
+      const match = await bcrypt.compare(password, dbPassword);
+      if (!match) {
+        return res
+          .status(400)
+          .json({ error: "Wrong username and password combination" });
+      }
+      const accessToken = await jwt.createToken(user);
+      if (!accessToken) {
+        return res.status(400).send("Error signing user token");
+      }
+      res.cookie("access-token", accessToken, {
+        maxAge: 15778800000,
+        httpOnly: true,
+      });
+    } catch {
+      return res.status(400).send("User not found");
+    }
+
+    return res.status(200).send("User logged in successfully");
   },
   index(req, res) {
     User.findAll()

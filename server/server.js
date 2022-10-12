@@ -3,6 +3,7 @@ import databaseInstance from "./config/database.js";
 import express from "express";
 const app = express();
 import router from "./app/Routes/user.js";
+import cookieParser from "cookie-parser";
 
 /* Database connection */
 
@@ -13,6 +14,7 @@ try {
   console.error("Unable to connect to the database:", error);
 }
 
+app.use(cookieParser());
 app.use(express.json());
 
 //User routes
