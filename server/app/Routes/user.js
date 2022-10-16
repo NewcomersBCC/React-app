@@ -2,12 +2,11 @@
 import { Router } from "express";
 import esolCentreController from "../Controller/esolCentreController.js";
 import userController from "../Controller/userController.js";
-const router = Router();
+const userRouter = Router();
 
-router
-  .get("/", userController.index)
+userRouter
   .get("/register/", esolCentreController.index)
   .post("/register/", userController.create)
   .post("/login", userController.login);
 
-export default router;
+export default userRouter;

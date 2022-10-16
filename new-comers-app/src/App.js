@@ -1,13 +1,11 @@
-/* import axios from "axios"; */
-//import Register from "./components/Register/Register";
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import HelperVsNC from "./pages/HelperVsNC";
+import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
+import HelperVsNC from "./pages/HelperVsNC/HelperVsNC";
+import Home from "./pages/Home/Home";
 
 import "./App.css";
-
 function App() {
   return (
     <div className="App">
@@ -15,7 +13,8 @@ function App() {
         <Routes>
           <Route index element={<HelperVsNC />}></Route>
           <Route path="/register/:option" element={<Register />}></Route>
-          <Route path="login" element={<Login />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/home" element={<Home />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
