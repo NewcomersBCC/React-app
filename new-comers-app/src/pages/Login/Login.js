@@ -2,26 +2,28 @@ import React, { useState } from "react";
 import axios from "axios";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-
-function handleLogin(email, password) {
-  const params = {
-    email,
-    password,
-  };
-  axios
-    .post("/user/login", params)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputType, setInputType] = useState("password");
+
+  function handleLogin(email, password) {
+    const params = {
+      email,
+      password,
+    };
+    axios
+      .post("/user/login", params)
+      .then((res) => {
+        navigate("/home");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   return (
     <div>
       <Input
