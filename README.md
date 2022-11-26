@@ -3,7 +3,7 @@ The Big Birmingham Hackathon Round 2 occurred on the 17th February 2022. The pur
 
 When a migrant arrives to a country with a different language the barriers they face multiply. Basic and fundamental tasks such as grocery shopping, attending doctor’s appointments, or registering for public services become great obstacles to navigate. 
 
-The overall aim of the winning solution is to address the needs of (im)migrant groups within Birmingham and allow them to integrate and participate in their local communities
+The overall aim of the winning solution is to address the needs of (im)migrant groups within Birmingham and allow them to integrate and participate in their local communities.
 
 #### Partnerships BCC/BAES/BCU
 
