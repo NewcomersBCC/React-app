@@ -47,3 +47,4 @@ Steps to install the program locally:
 * [Version Control](https://en.wikipedia.org/wiki/Version_control)
 * [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+* [Easy Rights]
